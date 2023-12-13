@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 
+import os
+import jinja2
 import asyncio
 import logging
+import aiohttp_jinja2
 from aiohttp import web
 
 # App ettings
 NAME = 'cake-app'
 HOST = '0.0.0.0'
 PORT = 8080
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Logs settins
 LOG_FORMAT = "%(asctime)s %(name)s: [%(levelname)s] %(message)s"
@@ -20,14 +26,19 @@ console.setFormatter(logging.Formatter(LOG_FORMAT, LOG_DATE_FORMAT))
 console.setLevel(logging.DEBUG)
 logger.addHandler(console)
 
-
-async def start(request):
-    return web.Response(text=f"Welcome to example app deployed on Kubernetes :)")
+class IndexView(web.View):
+    @aiohttp_jinja2.template('index.html')
+    async def get(self):
+        return dict(form='Ok')
 
 async def create_app():
     ''' Prepare application '''
     app = web.Application()
-    app.router.add_get('/', start, name='start')
+    aiohttp_jinja2.setup(
+        app, loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
+        context_processors=[aiohttp_jinja2.request_processor],)
+    app.router.add_get('/', IndexView, name='index')
+    app.router.add_static('/static', path=STATIC_DIR, name='static')
     return app
 
 if __name__ == '__main__':
