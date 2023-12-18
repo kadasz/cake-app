@@ -23,9 +23,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ github.repository }}
-          tags: |
+          labels: |
             maintainer=Karol D Sz
             org.opencontainers.image.title=CakeApp
+          tags: |
             type=semver,pattern={{version}}
       -
         name: Login to Docker Hub
