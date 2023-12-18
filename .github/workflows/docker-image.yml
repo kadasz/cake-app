@@ -24,10 +24,9 @@ jobs:
         with:
           images: ${{ github.repository }}
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
+            maintainer=Karol D Sz<karol_sz@poczta.fm>
+            org.opencontainers.image.title=CakeApp
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
       -
         name: Login to Docker Hub
         if: github.event_name != 'pull_request'
