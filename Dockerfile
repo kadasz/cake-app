@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.tx
 
 EXPOSE 8080
 
-CMD [ "app.py" ]
+CMD [ "python3", "/app/app.py" ]
