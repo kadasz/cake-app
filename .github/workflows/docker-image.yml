@@ -24,7 +24,7 @@ jobs:
         with:
           images: ${{ github.repository }}
           tags: |
-            maintainer=Karol D Sz<karol_sz@poczta.fm>
+            maintainer="Karol D Sz<karol_sz@poczta.fm>"
             org.opencontainers.image.title=CakeApp
             type=semver,pattern={{version}}
       -
