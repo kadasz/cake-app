@@ -41,5 +41,3 @@ jobs:
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
-
-    
