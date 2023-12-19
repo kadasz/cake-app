@@ -7,15 +7,15 @@ import logging
 import aiohttp_jinja2
 from aiohttp import web
 
-# App ettings
-NAME = 'cake-app'
+# App settings
 HOST = '0.0.0.0'
-PORT = 8080
+NAME = os.environ.get('APP_NAME', 'cake-app')
+PORT = os.environ.get('APP_PORT', '8080')
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
-# Logs settins
+# Logs settings
 LOG_FORMAT = "%(asctime)s %(name)s: [%(levelname)s] %(message)s"
 LOG_DATE_FORMAT = "[ %Y-%m-%d %H:%M:%S ]"
 ACCESS_LOG_FORMAT = f'%a - %r %s %b %Tf'
