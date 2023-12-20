@@ -18,7 +18,20 @@ spec:
         app: cake-app
     spec:
       containers:
-      - image: kadasz/cake-app:v1
+      - image: kadasz/cake-app:v1.0.5
         name: cake-app
         resources: {}
 status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cake-app-svc
+spec:
+  type: NodePort
+  selector:
+    app: cake-app
+  ports:
+      - nodePort: 38080
+        protocol: TCP
+        port: 8080
