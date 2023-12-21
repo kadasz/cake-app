@@ -20,8 +20,9 @@ spec:
       containers:
       - image: kadasz/cake-app:v1.0.5
         name: cake-app
-        resources: {}
-status: {}
+        env:
+        - name: APP_BG
+          value: "gray"
 ---
 apiVersion: v1
 kind: Service
@@ -32,6 +33,6 @@ spec:
   selector:
     app: cake-app
   ports:
-      - nodePort: 38080
-        protocol: TCP
-        port: 8080
+    - nodePort: 38080
+      protocol: TCP
+      port: 8080

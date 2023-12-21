@@ -10,10 +10,12 @@ from aiohttp import web
 # App settings
 HOST = '0.0.0.0'
 NAME = os.environ.get('APP_NAME', 'cake-app')
-PORT = os.environ.get('APP_PORT', '8080')
+PORT = os.environ.get('APP_PORT', 8080)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
+APP_BG = os.environ.get('APP_BG', 'powderblue')
+
 
 # Logs settings
 LOG_FORMAT = "%(asctime)s %(name)s: [%(levelname)s] %(message)s"
@@ -29,7 +31,7 @@ logger.addHandler(console)
 class IndexView(web.View):
     @aiohttp_jinja2.template('index.html')
     async def get(self):
-        return dict(form='Ok')
+        return dict(background=APP_BG)
 
 async def create_app():
     ''' Prepare application '''
@@ -45,4 +47,4 @@ if __name__ == '__main__':
     logger.debug(f'Start server {HOST}:{PORT}')
     loop = asyncio.get_event_loop()
     app = loop.run_until_complete(create_app())
-    web.run_app(app, access_log=logger, access_log_format=ACCESS_LOG_FORMAT, host=HOST, port=PORT)
+    web.run_app(app, access_log=logger, access_log_format=ACCESS_LOG_FORMAT, host=HOST, port=int(PORT))
