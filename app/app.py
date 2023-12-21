@@ -15,6 +15,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 APP_BG = os.environ.get('APP_BG', 'powderblue')
+APP_HOST = os.environ.get('HOSTNAME', 'N/A')
 
 
 # Logs settings
@@ -31,7 +32,7 @@ logger.addHandler(console)
 class IndexView(web.View):
     @aiohttp_jinja2.template('index.html')
     async def get(self):
-        return dict(background=APP_BG)
+        return dict(background=APP_BG, hostname=APP_HOST)
 
 async def create_app():
     ''' Prepare application '''
