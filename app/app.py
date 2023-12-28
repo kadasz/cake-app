@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import json
 import jinja2
 import asyncio
 import logging
@@ -34,6 +35,12 @@ class IndexView(web.View):
     async def get(self):
         return dict(background=APP_BG, hostname=APP_HOST)
 
+class HealthView(web.View):
+    async def get(self):
+        return web.Response(text=json.dumps({
+            'isItWorking': 'sure',
+        }, indent=2))
+
 async def create_app():
     ''' Prepare application '''
     app = web.Application()
@@ -41,6 +48,7 @@ async def create_app():
         app, loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
         context_processors=[aiohttp_jinja2.request_processor],)
     app.router.add_get('/', IndexView, name='index')
+    app.router.add_get('/health/check', HealthView, name='healthchk')
     app.router.add_static('/static', path=STATIC_DIR, name='static')
     return app
 
