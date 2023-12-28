@@ -39,6 +39,7 @@ class HealthView(web.View):
     async def get(self):
         return web.Response(text=json.dumps({
             'isItWorking': 'sure',
+            'envHealth': os.environ.get('APP_HEALTH_VALUE', 'N/A'),
         }, indent=2))
 
 async def create_app():
