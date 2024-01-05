@@ -18,7 +18,7 @@ spec:
         app: cake-app
     spec:
       containers:
-      - image: kadasz/cake-app:v1.0.5
+      - image: kadasz/cake-app:1.0.5
         name: cake-app
         env:
         - name: APP_BG
@@ -33,6 +33,6 @@ spec:
   selector:
     app: cake-app
   ports:
-    - nodePort: 38080
+    - nodePort: 32080
       protocol: TCP
       port: 8080
