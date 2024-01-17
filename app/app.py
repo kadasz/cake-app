@@ -30,6 +30,13 @@ console.setFormatter(logging.Formatter(LOG_FORMAT, LOG_DATE_FORMAT))
 console.setLevel(logging.DEBUG)
 logger.addHandler(console)
 
+def get_app_debug_info():
+    return {k: v for k, v in os.environ.items()}
+
+class DebugView(web.View):
+    async def get(self):
+        return web.Response(text=json.dumps(get_app_debug_info(), indent=2))
+
 class IndexView(web.View):
     @aiohttp_jinja2.template('index.html')
     async def get(self):
@@ -49,6 +56,7 @@ async def create_app():
         app, loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
         context_processors=[aiohttp_jinja2.request_processor],)
     app.router.add_get('/', IndexView, name='index')
+    app.router.add_get('/app/debug', DebugView, name='debug')
     app.router.add_get('/health/check', HealthView, name='healthchk')
     app.router.add_static('/static', path=STATIC_DIR, name='static')
     return app
