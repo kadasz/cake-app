@@ -25,3 +25,7 @@ version-s:
 
 version-save: version-s ver ## Create and save new version
 	@echo "saved - $(PR_VER)"
+
+do-release: ## Release new version of app
+	@git add $^ && git commit -m 'Bumped to version $(PR_VER)'
+	@git tag $(PR_VER)"

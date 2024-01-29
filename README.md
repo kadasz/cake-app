@@ -7,9 +7,15 @@ The main goal is be still learning and hands-on practice. Second one reson is be
 ## Makefile
 Makefile allows you to prepare dev environment and release app based on git tags.
 
-`
+```
 $ make
 version-next                   Create new version
 version-save                   Create and save new version
 version                        Show current version
-`
+```
+
+### Release
+To make a new release and create new version of app:
+```
+do-release
+```
