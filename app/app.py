@@ -34,8 +34,9 @@ def get_app_debug_info():
     return {k: v for k, v in os.environ.items()}
 
 class DebugView(web.View):
+    @aiohttp_jinja2.template('debug.html')
     async def get(self):
-        return web.Response(text=json.dumps(get_app_debug_info(), indent=2))
+        return dict(cfg=get_app_debug_info())
 
 class IndexView(web.View):
     @aiohttp_jinja2.template('index.html')
