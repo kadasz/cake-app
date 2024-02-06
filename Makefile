@@ -28,4 +28,4 @@ version-save: version-s ver ## Create and save new version
 
 do-release: ## Release new version of app
 	@git add --all && git commit -m 'Bumped to version $(PR_VER)'
-	@git tag $(PR_VER)"
+	@git tag $(PR_VER)
