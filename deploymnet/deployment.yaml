@@ -23,6 +23,13 @@ spec:
         env:
         - name: APP_BG
           value: "gray"
+        resources:
+          limits:
+            cpu: 200m
+            memory: 300Mi
+          requests:
+            cpu: 150m
+            memory: 2500Mi
 ---
 apiVersion: v1
 kind: Service
