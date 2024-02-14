@@ -1,11 +1,17 @@
 FROM python:3.11-slim
 
-WORKDIR /app
+RUN mkdir -p /opt/app & \
+    addgroup --gid 9999 app & \
+    adduser --uid 9999 --gid 9999 --disabled-password --home /opt/app --gecos "Application user" app
+RUN usermod -L app & chown -R app:app /opt/app
 
-COPY ./app /app/
+COPY --chown=app:app ./app /opt/app
 
-RUN pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
+USER app
+WORKDIR /opt/app
+
+RUN pip install --user --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
 
 EXPOSE 8080
 
-CMD [ "python3", "/app/app.py" ]
+CMD [ "python3", "/opt/app/app.py" ]
