@@ -26,15 +26,21 @@ spec:
         ports:
         - containerPort: 8080
         readinessProbe:
-          initialDelaySeconds: 10
-            httpGet:
-              path: "/health/check"
-              port: 8080
-        livenessProbe:
-          initialDelaySeconds: 10
           httpGet:
             path: "/health/check"
             port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: "/health/check"
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 2
         resources:
           requests:
             cpu: 150m
@@ -42,7 +48,7 @@ spec:
           limits:
             cpu: 200m
             memory: 300Mi
-         
+
 ---
 apiVersion: v1
 kind: Service
