@@ -22,7 +22,7 @@ spec:
         runAsUser: 9999
         runAsGroup: 9999
       containers:
-      - image: kadasz/cake-app:1.0.8
+      - image: kadasz/cake-app:1.0.9
         name: cake-app
         env:
         - name: APP_BG
