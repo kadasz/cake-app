@@ -21,7 +21,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 9999
         runAsGroup: 9999
-        #fsGroup: 2000
       containers:
       - image: kadasz/cake-app:1.0.5
         name: cake-app
